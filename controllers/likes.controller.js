@@ -1,46 +1,45 @@
 const LikesService = require('../services/like.service');
-
+const CustonException = require("../exception/custonException");
 
 class LikesController{
     
-    likeServices = LikesService()
-}
+    likesServices = new LikesService()
 
-LikeFindAll = async (req, res, next) => {
+
+LikeFindAll = async (req, res) => {
     try {
-      const { userId } = res.locals.user;
-      const likefindall = await this.likesService.LikeFindAll({ userId });
+      const { ID } = res.locals.user;
+      const likefindall = await this.likesServices.LikeFindAll( ID );
       res.status(200).json({ data:likefindall });
     } catch (error) {
-      const exception = exceptionHandler(err);
-      return res.status(exception.statusCode).json(exception.message);
+      console.log(error)
     }
   };
 
-LikeFindOne= async (req,res,next) => {
+LikeFindOne= async (req,res) => {
     try{
-      const {userId} = res.locals.user;
+      const {ID} = res.locals.user;
       const {postId} = req.params;
-      const isExist = await this.likesService.LikeFindOne({userId,postId});
+      const isExist = await this.likesServices.LikeFindOne({ID,postId});
       res.status(200).json({data:isExist})
-    }catch{
-      const exception = exceptionHandler(err);
-      return res.status(exception.statusCode).json(exception.message);
+    }catch(error){
+      console.log(error)
     } 
 };
 
-LikePush =async(req,res,next)=>{
+LikePush =async(req,res)=>{
   try{
-    const{userId}=res.locals.user;
+    const{ID}=res.locals.user;
     const{postId}=req.params;
-    const likepush = await this.likesService.LikePush({userId,postId});
+    console.log(1);
+    const likepush = await this.likesServices.LikePush(ID,postId);
+    console.log(2);
     res.status(200).json({data:likepush})
-  }catch{
-    const exception = exceptionHandler(err);
-    return res.status(exception.statusCode).json(exception.message);
+  }catch(err){
+    console.log(err)
   }
 }
-
+}
 // LikeCreate = async (req,res,next)=>{
 //     try{
 //       const {userId} = res.locals.user;

@@ -15,17 +15,13 @@ module.exports = (sequelize, DataTypes) => {
   }
   Likes.init({
     likeId: {
-      primaryKey :true,
-      type: DataTypes.INTEGER,
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.INTEGER
     },
-    postId :{
-      foreignKEy:true,
-      type:DataTypes.INTEGER,
-    },
-    userId :{
-      foreignKEy:true,
-      type:DataTypes.INTEGER,
-    },
+    postId:{type: DataTypes.INTEGER, unique: false, allowNull: false },
+    ID: {type: DataTypes.STRING, unique: false, allowNull: false }
   }, {
     sequelize,
     modelName: 'Likes',
