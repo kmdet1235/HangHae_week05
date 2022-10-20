@@ -1,2 +1,0 @@
--- SELECT * FROM Users;
--- DROP database database_development
